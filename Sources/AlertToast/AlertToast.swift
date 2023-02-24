@@ -555,9 +555,15 @@ public struct AlertToastModifier: ViewModifier{
         case .alert:
             content
                 .overlay(ZStack{
+                    if isPresenting {
+                        Color.white.opacity(0.01).ignoresSafeArea()
+                    }
                     main()
                         .offset(y: offsetY)
                 }
+                    .onTapGesture {
+                        debugPrint("zstack click")
+                    }
                             .frame(maxWidth: screen.width, maxHeight: screen.height, alignment: .center)
                             .edgesIgnoringSafeArea(.all)
                             .animation(Animation.spring(), value: isPresenting))
